@@ -1,0 +1,121 @@
+<div style="background-color: #f1f4fa; min-width:100%;min-height: 100%" >
+<div *ngIf="details?.length > 0 && selectedTransaction !== undefined && !loading;then content"></div> 
+  
+<ng-template #content>
+
+<div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col" style="padding-left:10px;">
+            <div class="tile justify-content-between">
+                <div >
+                    <div class="header">  
+                        {{details[0].brand}}
+                        <div *ngIf="details[0].brand == 0" style="color:red;">No Brand</div>
+                        <img  src="http://pngimg.com/uploads/mcdonalds/mcdonalds_PNG16.png">
+                    </div>
+                    <div class="info">
+                        <div>
+                                <div class="row" style="padding:15px;">
+                                    <div class="col" style="font-size:12px;">
+                                            {{selectedTransaction.Date}}
+                                    </div>
+                                    <div class="col"  style="font-size:12px; text-align:right;">
+                                            {{details[0].level1}}
+                                    </div>
+                                </div>
+                                <div class="row" style="padding:15px">
+                                    <div class="col" style="font-size:50px;font-weight:bold;">
+                                            ${{selectedTransaction.Amount}}
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col" style="display: table-row;">
+                                        <div style="display: table-col; padding:15px">
+                                    <i class="fa fa-map-marker" style="display: table-cell;text-align:center;vertical-align: middle"></i>                                          
+                                               <span style="padding-left:20px; display: table-cell; line-height: 20px;">
+                                                        {{details[0].suburb}} <br>
+                                                        {{details[0].state}} {{details[0].postCode}}<br>
+                                                </span>  
+                                    </div>
+                                 </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col" style="display: table-row;">
+                                            <div style="display: table-col;padding:15px">
+                                     <i class="fa fa-calendar" style="display: table-cell;text-align:center;vertical-align: middle"></i>
+                                    <span style="padding-left:20px; display: table-cell;">{{selectedTransaction.Time}}</span>
+                                    </div>
+                            </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="info-link">
+                        <div>
+                        <a href="tel:800-244-6227" style="text-decoration:none">
+                            <strong>
+                                    <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x icon-background2"></i>
+                                             <i class="fa fa-circle-thin fa-stack-2x icon-background1"></i>
+                                            <i class="fa fa-phone fa-stack-1x"  style="color: aliceblue;"></i>
+                                     </span>
+                            </strong>Phone
+                        </a>
+                        </div>
+                        <div>
+                        <a href="mailto:contact@mcdonalds.com.au" style="text-decoration:none">    
+                            <strong>
+                                    <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x icon-background2"></i>
+                                             <i class="fa fa-circle-thin fa-stack-2x icon-background1"></i>
+                                            <i class="fa fa-envelope fa-stack-1x"  style="color: aliceblue;" ></i>
+                                     </span>
+                            </strong> Email
+                        </a>    
+                        </div>
+                        <div>
+                        <a href="https://mcdonalds.com.au/" target="_blank" style="text-decoration:none">    
+                            <strong>
+                                    <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x icon-background2"></i>
+                                             <i class="fa fa-circle-thin fa-stack-2x icon-background1"></i>
+                                            <i class="fa fa-globe fa-stack-1x"  style="color: aliceblue;"></i>
+                                     </span>
+                            </strong> Website
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+    </div>
+
+    <div class="row" style="padding-bottom: 75px">
+        <div class="col-sm-12 col-md-12 col" style="padding-left:10px;">
+            <div class="tile justify-content-between">
+                <div>
+                    <div class="header">  
+                        Location
+                    </div>
+                    <div class="map">
+                            <agm-map [zoom]="11"  [latitude]="details[0].latitude" [longitude]="details[0].longitude" style="height:300px">
+                                    <agm-marker [latitude]="details[0].latitude" [longitude]="details[0].longitude"></agm-marker>
+                                  </agm-map>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+    </div>
+</div>
+</ng-template>
+
+<div *ngIf="selectedTransaction == undefined;then notselected"></div> 
+<ng-template #notselected> Please select some...</ng-template>
+
+<div *ngIf="details?.length == 0;then nodetails"></div> 
+<ng-template #nodetails> No details available now...</ng-template>
+
+<div *ngIf="loading;then loader"></div> 
+<ng-template #loader><app-spinner *ngIf="loading"></app-spinner></ng-template>
+
+
+</div>

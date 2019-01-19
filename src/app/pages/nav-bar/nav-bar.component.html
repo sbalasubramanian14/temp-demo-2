@@ -1,0 +1,50 @@
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar" >
+        <div class="sidebar-header">
+            <!--h3>Quantium</h3-->
+            <img src="assets/Q.Refinery-REV.png" style="max-width: 100%;">
+        </div>
+
+        <ul class="list-unstyled components">
+            
+            <li class="active">
+                <a routerLink="/home-page" [class.sidebar-active]="currentURL == '/home-page'">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>  
+            </li>
+            <li>
+                <a routerLink="/transactions" [class.sidebar-active]="currentURL == '/transactions'">
+                    <i class="fas fa-credit-card"></i>
+                    Transactions
+                </a>
+            </li>
+            <li>
+                <a routerLink="/info-page" [class.sidebar-active]="currentURL == '/info-page'">
+                   <i class="fas fa-link"></i>
+                    Docs
+                </a>
+            </li>
+        </ul>
+        <img src="assets/Quantium-Powered.png" id="footer-logo">
+    </nav>
+
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+
+
+
+<div class="bottom-nav" [hidden]="!showMobileNavBar" style="z-index: 10">
+    <a routerLink="/home-page" class="bottom-navaction">
+        <i class="fas fa-home fa-4x bottom-navicon"></i>
+    </a>
+    <a routerLink="/transactions" class="bottom-navaction">
+        <i class="fas fa-credit-card fa-4x bottom-navicon"></i>
+    </a>
+    <a routerLink="/info-page" class="bottom-navaction">
+        <i class="fas fa-link fa-4x bottom-navicon"></i>
+    </a>
+</div>
+</div>

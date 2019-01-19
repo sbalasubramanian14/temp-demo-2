@@ -1,0 +1,59 @@
+<div style="background-color: #f1f4fa; height:99vh">
+    
+    
+<div class="page-content"  [ngClass]="{'bg-white bottom-border': MobileView }">
+    <div [hidden]="!showDetails">
+        <div>
+          <a style="display:block" (click)="goToTransactions()" [hidden] = "!MobileView" class="pointer-cursor">
+            <span class="fa fa-angle-left fa-lg"></span><span style="padding-left: 5px">Back</span>
+          </a>
+        </div>
+    </div>
+  <h3 [ngClass]="{'padding-d': MobileView && showDetails }"><strong>{{this.title}}</strong></h3>
+<hr [hidden] = "MobileView">
+<div >
+    <div class="row ">
+    <div style="margin-bottom: 4px" class="form-group has-search  col-sm-12 col-md-12 col-lg-6" [hidden]="!showTransactions">
+        <div class="input-group " style="padding-top: 1em">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="search" class="form-control" placeholder="Search" [(ngModel)]="searchString">
+            <div class="input-group-append" style="padding-left: 1em">
+                <span class="fa-stack fa-lg icon">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-filter fa-stack-1x"></i>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+<div class="row container-fluid padding-r0" >
+    <div class="col-lg-6 padding-0" [hidden]="!showTransactions" [ngClass]="{'top-border': MobileView }" style="background-color: #f1f4fa; height:78vh">
+      <app-spinner *ngIf="loading"></app-spinner>
+      <div class="container padding-r0">
+          <div id="inner-container" >
+            <cdk-virtual-scroll-viewport  style="height: 78vh" itemSize="100">
+              <div class="list-group" [@listStagger]="filteredTransactions">
+              <div  *cdkVirtualFor="let transaction of filteredTransactions" (click)="setTransaction(transaction)" class="no-border pointer-cursor shadow-sm mb-3 rounded list-group-item list-group-item-action align-items-start padding-2">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{transaction.Text}}</h5>
+                  <small>${{transaction.Amount}}</small>
+                </div>
+                <small>{{transaction.Date}}</small>
+              </div> 
+            </div>
+            </cdk-virtual-scroll-viewport>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 padding-r0" [hidden]="!showDetails" id="details">
+      <div>
+          <cdk-virtual-scroll-viewport  style="height: 78vh" itemSize="300">
+        <app-transaction-details [selectedTransaction]="selectedTransaction"></app-transaction-details>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+</div>
